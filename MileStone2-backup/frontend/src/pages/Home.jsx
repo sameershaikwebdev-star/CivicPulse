@@ -5,7 +5,6 @@ import Stats from "../components/Stats";
 import Timeline from "../components/Timeline";
 import RegisterComplaint from "../RegisterComplaint";
 import Footer from "../components/Footer";
-import Cursor from "../components/Cursor";
 import Particles from "../components/Particles";
 
 export default function Home() {
