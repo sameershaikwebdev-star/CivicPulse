@@ -4,8 +4,8 @@ services:
     runtime: node
     plan: free
     region: oregon
-    branch: milestone2-backup
-    rootDir: backend
+    branch: main
+    rootDir: MileStone2-backup/backend
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /api/health
