@@ -13,9 +13,9 @@ export default function Footer() {
       id="contact"
       style={{
         marginTop: "120px",
-        background: "rgba(255,255,255,.04)",
+        background: "linear-gradient(180deg,#0f172a,#020617)",
         backdropFilter: "blur(18px)",
-        borderTop: "1px solid rgba(255,255,255,.08)",
+        borderTop: "1px solid rgba(255,255,255,.1)",
         padding: "70px 8%",
       }}
     >
@@ -77,6 +77,7 @@ export default function Footer() {
             <a href="#features" style={linkStyle}>Features</a>
             <a href="#statistics" style={linkStyle}>Statistics</a>
             <a href="#timeline" style={linkStyle}>Timeline</a>
+            <a href="#login" style={linkStyle}>Login</a>
           </div>
         </div>
 
@@ -93,13 +94,43 @@ export default function Footer() {
           <div
             style={{
               display: "flex",
-              gap: "18px",
+              flexDirection: "column",
+              gap: "15px",
             }}
           >
-            <Icon><Github /></Icon>
-            <Icon><Linkedin /></Icon>
-            <Icon><Twitter /></Icon>
-            <Icon><Mail /></Icon>
+            <div
+              style={{
+                display: "flex",
+                gap: "18px",
+              }}
+            >
+              <Icon href="https://github.com/sameershaikwebdev-star">
+                <Github size={22} color="#ffffff" />
+              </Icon>
+              <Icon href="https://www.linkedin.com/in/sameer-shaik-7950a0377/">
+                <Linkedin size={22} color="#ffffff" />
+              </Icon>
+              <Icon href="https://x.com/SameerShai46389">
+                <Twitter size={22} color="#ffffff" />
+              </Icon>
+              <Icon href="mailto:sameershaik.wedev@gmail.com">
+                <Mail size={22} color="#ffffff" />
+              </Icon>
+            </div>
+
+            <a
+              href="mailto:sameershaik.wedev@gmail.com"
+              style={{
+                ...linkStyle,
+                fontSize: "14px",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginTop: "5px",
+              }}
+            >
+              <Mail size={16} /> sameershaik.wedev@gmail.com
+            </a>
           </div>
         </div>
       </div>
@@ -152,13 +183,16 @@ const linkStyle = {
   color: "#94a3b8",
 };
 
-function Icon({ children }) {
+function Icon({ children, href }) {
   return (
-    <motion.div
+    <motion.a
+      href={href}
+      target={href.startsWith("http") ? "_blank" : undefined}
+      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
       whileHover={{
-        scale: 1.25,
-        rotate: 15,
-        boxShadow: "0 0 25px #3b82f6",
+        scale: 1.2,
+        y: -4,
+        boxShadow: "0 0 25px rgba(59, 130, 246, 0.8)",
       }}
       style={{
         width: 52,
@@ -167,12 +201,14 @@ function Icon({ children }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "rgba(255,255,255,.05)",
-        border: "1px solid rgba(255,255,255,.08)",
+        background: "rgba(37, 99, 235, 0.25)",
+        border: "1px solid rgba(59, 130, 246, 0.5)",
         cursor: "pointer",
+        color: "#ffffff",
+        textDecoration: "none",
       }}
     >
       {children}
-    </motion.div>
+    </motion.a>
   );
 }
