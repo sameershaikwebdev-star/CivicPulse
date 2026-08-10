@@ -26,12 +26,10 @@ body,
   padding: 0;
   width: 100%;
   overflow-x: hidden;
-  background-color: #030712;
-  color: #ffffff;
 }
 
 select option {
-  background-color: #0f172a !important;
+  background-color: #1e293b !important;
   color: #ffffff !important;
 }
 
