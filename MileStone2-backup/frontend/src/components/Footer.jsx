@@ -13,10 +13,11 @@ export default function Footer() {
       id="contact"
       style={{
         marginTop: "120px",
-        background: "linear-gradient(180deg,#0f172a,#020617)",
+        background: "#0f172a",
         backdropFilter: "blur(18px)",
         borderTop: "1px solid rgba(255,255,255,.1)",
         padding: "70px 8%",
+        color: "#ffffff",
       }}
     >
       <div
@@ -105,16 +106,16 @@ export default function Footer() {
               }}
             >
               <Icon href="https://github.com/sameershaikwebdev-star">
-                <Github size={22} color="#ffffff" />
+                <Github size={24} color="#ffffff" />
               </Icon>
               <Icon href="https://www.linkedin.com/in/sameer-shaik-7950a0377/">
-                <Linkedin size={22} color="#ffffff" />
+                <Linkedin size={24} color="#ffffff" />
               </Icon>
               <Icon href="https://x.com/SameerShai46389">
-                <Twitter size={22} color="#ffffff" />
+                <Twitter size={24} color="#ffffff" />
               </Icon>
               <Icon href="mailto:sameershaik.wedev@gmail.com">
-                <Mail size={22} color="#ffffff" />
+                <Mail size={24} color="#ffffff" />
               </Icon>
             </div>
 
@@ -191,7 +192,7 @@ function Icon({ children, href }) {
       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
       whileHover={{
         scale: 1.2,
-        y: -4,
+        y: -3,
         boxShadow: "0 0 25px rgba(59, 130, 246, 0.8)",
       }}
       style={{
@@ -201,11 +202,12 @@ function Icon({ children, href }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "rgba(37, 99, 235, 0.25)",
-        border: "1px solid rgba(59, 130, 246, 0.5)",
+        background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+        border: "1px solid rgba(255,255,255,0.2)",
         cursor: "pointer",
         color: "#ffffff",
         textDecoration: "none",
+        boxShadow: "0 4px 15px rgba(59, 130, 246, 0.4)",
       }}
     >
       {children}
