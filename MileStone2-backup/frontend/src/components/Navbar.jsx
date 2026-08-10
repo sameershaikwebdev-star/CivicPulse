@@ -7,6 +7,7 @@ const links = [
   { name: "Features", href: "#features" },
   { name: "Statistics", href: "#statistics" },
   { name: "Timeline", href: "#timeline" },
+  { name: "Login", href: "#login" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -110,6 +111,10 @@ export default function Navbar() {
             ))}
 
             <motion.button
+              onClick={() => {
+                const el = document.getElementById("login");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
               whileHover={{
                 scale: 1.08,
                 boxShadow: "0 0 35px #3b82f6",
