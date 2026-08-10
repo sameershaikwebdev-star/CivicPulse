@@ -527,7 +527,7 @@ const select = {
 };
 
 const optionStyle = {
-  background: "#0f172a",
+  background: "#1e293b",
   color: "#ffffff",
   padding: "12px",
 };
