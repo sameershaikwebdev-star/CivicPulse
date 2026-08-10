@@ -33,42 +33,74 @@ export default function RegisterComplaint() {
 
   return (
     <section
+      id="login"
       style={{
         minHeight: "100vh",
         padding: "120px 8%",
         background: "linear-gradient(135deg,#020617,#0f172a,#111827)",
       }}
     >
-      <motion.h1
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        style={{
-          textAlign: "center",
-          fontSize: "54px",
-          marginBottom: "60px",
-          fontWeight: 800,
-          background: "linear-gradient(90deg,#8b5cf6,#3b82f6,#06b6d4)",
-          WebkitBackgroundClip: "text",
-          color: "transparent",
-        }}
-      >
-        Register & Submit Complaint
-      </motion.h1>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(420px,1fr))",
-          gap: "40px",
-        }}
-      >
-        <ComplaintForm token={token} user={user} />
-        {user ? (
-          <LoggedInCard user={user} onLogout={logout} />
-        ) : (
+      {!user ? (
+        <div style={{ maxWidth: "520px", margin: "0 auto" }}>
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{
+              textAlign: "center",
+              fontSize: "48px",
+              marginBottom: "12px",
+              fontWeight: 800,
+              background: "linear-gradient(90deg,#8b5cf6,#3b82f6,#06b6d4)",
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+            }}
+          >
+            Login to CivicPulse
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{
+              textAlign: "center",
+              color: "#94a3b8",
+              marginBottom: "40px",
+              fontSize: "16px",
+            }}
+          >
+            Please log in or create an account to register and submit your complaint.
+          </motion.p>
           <AuthCard onAuthed={login} />
-        )}
-      </div>
+        </div>
+      ) : (
+        <>
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{
+              textAlign: "center",
+              fontSize: "54px",
+              marginBottom: "60px",
+              fontWeight: 800,
+              background: "linear-gradient(90deg,#8b5cf6,#3b82f6,#06b6d4)",
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+            }}
+          >
+            Register & Submit Complaint
+          </motion.h1>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit,minmax(420px,1fr))",
+              gap: "40px",
+            }}
+          >
+            <ComplaintForm token={token} user={user} />
+            <LoggedInCard user={user} onLogout={logout} />
+          </div>
+        </>
+      )}
     </section>
   );
 }
@@ -144,9 +176,9 @@ function ComplaintForm({ token, user }) {
         value={form.category}
         onChange={(e) => update("category", e.target.value)}
       >
-        <option value="">Select Category</option>
+        <option value="" style={optionStyle}>Select Category</option>
         {CATEGORIES.map((c) => (
-          <option key={c} value={c}>
+          <option key={c} value={c} style={optionStyle}>
             {c}
           </option>
         ))}
@@ -157,9 +189,9 @@ function ComplaintForm({ token, user }) {
         value={form.priority}
         onChange={(e) => update("priority", e.target.value)}
       >
-        <option value="">Select Priority</option>
+        <option value="" style={optionStyle}>Select Priority</option>
         {PRIORITIES.map((p) => (
-          <option key={p} value={p}>
+          <option key={p} value={p} style={optionStyle}>
             {p}
           </option>
         ))}
@@ -205,22 +237,22 @@ function ComplaintForm({ token, user }) {
 /* ---------------- Auth Card (Register / Login) ---------------- */
 
 function AuthCard({ onAuthed }) {
-  const [mode, setMode] = useState("register"); // "register" | "login"
+  const [mode, setMode] = useState("login"); // "login" | "register"
 
   return (
-    <motion.div initial={{ opacity: 0, x: 80 }} animate={{ opacity: 1, x: 0 }} style={card}>
-      <h2 style={heading}>{mode === "register" ? "Create Account" : "Login"}</h2>
+    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} style={card}>
+      <h2 style={heading}>{mode === "login" ? "Login" : "Create Account"}</h2>
 
-      {mode === "register" ? (
-        <RegisterForm onAuthed={onAuthed} />
-      ) : (
+      {mode === "login" ? (
         <LoginForm onAuthed={onAuthed} />
+      ) : (
+        <RegisterForm onAuthed={onAuthed} />
       )}
 
       <p style={{ textAlign: "center", color: "#94a3b8", marginTop: 25 }}>
-        {mode === "register" ? "Already have an account?" : "Need an account?"}
+        {mode === "login" ? "Need an account?" : "Already have an account?"}
         <span
-          onClick={() => setMode(mode === "register" ? "login" : "register")}
+          onClick={() => setMode(mode === "login" ? "register" : "login")}
           style={{
             color: "#3b82f6",
             marginLeft: 6,
@@ -228,7 +260,7 @@ function AuthCard({ onAuthed }) {
             fontWeight: 700,
           }}
         >
-          {mode === "register" ? "Login" : "Create Account"}
+          {mode === "login" ? "Create Account" : "Login"}
         </span>
       </p>
     </motion.div>
@@ -302,9 +334,9 @@ function RegisterForm({ onAuthed }) {
       />
 
       <select style={select} value={form.role} onChange={(e) => update("role", e.target.value)}>
-        <option value="">Select Role</option>
+        <option value="" style={optionStyle}>Select Role</option>
         {ROLES.map((r) => (
-          <option key={r} value={r}>
+          <option key={r} value={r} style={optionStyle}>
             {r}
           </option>
         ))}
@@ -492,6 +524,12 @@ const select = {
   borderRadius: "15px",
   color: "white",
   marginBottom: "18px",
+};
+
+const optionStyle = {
+  background: "#0f172a",
+  color: "#ffffff",
+  padding: "12px",
 };
 
 const textarea = {
