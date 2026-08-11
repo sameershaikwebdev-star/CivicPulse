@@ -1,0 +1,76 @@
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
+
+function signToken(userId) {
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
+    expiresIn: "7d",
+  });
+}
+
+// POST /api/auth/register
+async function register(req, res) {
+  try {
+    const { fullName, email, phone, address, role, password, confirmPassword } =
+      req.body;
+
+    if (!fullName || !email || !phone || !password) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    if (confirmPassword !== undefined && password !== confirmPassword) {
+      return res.status(400).json({ message: "Passwords do not match" });
+    }
+
+    const existing = await User.findOne({ email: email.toLowerCase() });
+    if (existing) {
+      return res.status(409).json({ message: "Email already registered" });
+    }
+
+    const user = await User.create({
+      fullName,
+      email,
+      phone,
+      address,
+      role,
+      password,
+    });
+
+    const token = signToken(user._id);
+    res.status(201).json({ user, token });
+  } catch (err) {
+    res.status(500).json({ message: "Registration failed", error: err.message });
+  }
+}
+
+// POST /api/auth/login
+async function login(req, res) {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password required" });
+    }
+
+    const user = await User.findOne({ email: email.toLowerCase() });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    const match = await user.comparePassword(password);
+    if (!match) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    const token = signToken(user._id);
+    res.json({ user, token });
+  } catch (err) {
+    res.status(500).json({ message: "Login failed", error: err.message });
+  }
+}
+
+// GET /api/auth/me
+async function getMe(req, res) {
+  res.json({ user: req.user });
+}
+
+module.exports = { register, login, getMe };
